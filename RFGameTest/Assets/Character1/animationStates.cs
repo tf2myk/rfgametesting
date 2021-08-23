@@ -24,6 +24,8 @@ public class animationStates : MonoBehaviour
 
     bool movekey;
 
+    bool canjump;
+
 
 
 
@@ -33,9 +35,38 @@ public class animationStates : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.gameObject.name == "floor")
+        {
+            animstates.SetBool("isGrounded", true);
+            canjump = true;
+        }
+        else
+        {
+            
+        }
+        
+    }
+
+    
+
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKeyDown("space") && canjump)
+        {
+            animstates.SetBool("isGrounded", false);
+            canjump = false;
+            return;
+                
+	    }
+
+        
+        
+
+
 
         if(Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
         {

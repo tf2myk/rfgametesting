@@ -7,20 +7,41 @@ public class rigidbodymovement : MonoBehaviour
     // Start is called before the first frame update
     public Rigidbody m_Rigidbody;
     public float m_Speed = 5f;
-
     bool jump;
-
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
+    bool canjump;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.gameObject.name == "floor")
+        {
+            //Debug.Log("touching");
+            canjump = true;
+        }
+        else
+        {
+            //Debug.Log("nottouching");
+            canjump = false;
+        }
+        
+    }
+
+    
 
 
 
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
+
+        
+        if (Input.GetKeyDown("space") && canjump)
         {
-                m_Rigidbody.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+                canjump = false;
+                //jump height
+                m_Rigidbody.AddForce(new Vector3(0, 4, 0), ForceMode.Impulse);
+                
 
 	    }
     }
